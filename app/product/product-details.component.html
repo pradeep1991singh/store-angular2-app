@@ -1,0 +1,107 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{product.name}} - <span class="badge">{{product.price | currency}}</span></h3>
+  </div>
+
+  <div class="panel-body">
+
+    <ul class="img-thumbnails clearfix">
+      <li class="small-image thumbnail" *ngFor="let image of product.images">
+        <img src="{{image}}" class="img-responsive" alt="product image">
+      </li>
+    </ul>
+
+    <p>{{product.description}}</p>
+
+    <a class="btn btn-default pull-right btn-success" 
+      (click)="addToCart(product)" role="button">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add to Cart 
+    </a>
+
+      <ul class="nav nav-tabs">
+        <li role="presentation" [ngClass]="{'active': isSelected(1)}">
+          <a href="javascript:;" (click)="selectTab(1)">Description</a>
+        </li>
+        <li role="presentation" [ngClass]="{'active': isSelected(2)}">
+          <a href="javascript:;" (click)="selectTab(2)">Specs</a>
+        </li>
+        <li role="presentation" [ngClass]="{'active': isSelected(3)}">
+          <a href="javascript:;" (click)="selectTab(3)">Reviews</a>
+        </li>
+      </ul>
+
+      <div class="description" *ngIf="isSelected(1)">
+        <h4><span class="label label-default">Description</span></h4>
+        <p>{{product.description}}</p>
+      </div>
+
+      <div class="specs" *ngIf="isSelected(2)">
+        <h4><span class="label label-default">product Specification</span></h4>
+        <ul class="list-group">
+          <li class="list-group-item">Shine: <span class="badge">{{product.price}}</span></li>
+          <li class="list-group-item">rarity: <span class="badge">{{product.rarity}}</span></li>
+          <li class="list-group-item">Color: <span class="badge">{{product.color}}</span></li>
+          <li class="list-group-item">Faces: <span class="badge">{{product.faces}}</span></li>
+        </ul>
+      </div>
+
+      <div class="reviews" *ngIf="isSelected(3)">
+        <h4><span class="label label-default">Reviews</span></h4>
+        <blockquote *ngFor="let review of product.reviews">
+          <p><b>Stars: {{review.stars}}</b></p>
+          <p>{{review.message}}</p>
+          <cite>- {{review.email}}</cite>
+        </blockquote>
+
+        <hr />
+
+        <blockquote *ngIf="review.message">
+          <p><b>Stars: {{review.stars}}</b></p>
+          <p>{{review.message}}</p>
+          <cite>- {{review.email}}</cite>
+        </blockquote>        
+
+        <h4>New Review</h4>
+
+        <div class="col-xs-12 col-md-6">
+          <form (ngSubmit)="addReview()" #reviewForm="ngForm" novalidate>
+            {{diagnostic}}
+            <div class="form-group">
+              <label for="starRating">Stars</label>
+              <select class="form-control" 
+                id="starRating" 
+                [(ngModel)]="review.stars" 
+                name="stars"
+                #stars="ngModel"                
+                required>
+                <option *ngFor="let star of starRatings" [value]="star.value">{{star.name}}</option>                
+              </select>
+            </div>          
+
+            <div class="form-group">
+              <label for="exampleInputPassword1">Message</label>
+              <textarea 
+                name="message"
+                class="form-control" 
+                rows="3" 
+                [(ngModel)]="review.message" required>
+              </textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" 
+                class="form-control" 
+                id="exampleInputEmail1" 
+                placeholder="Email"
+                [(ngModel)]="review.email" 
+                name="email" required />
+            </div>            
+            
+            <button type="submit" class="btn btn-default" [disabled]="!reviewForm.form.valid">Submit</button>
+          </form> 
+        </div>       
+      </div>     
+
+  </div>
+</div>

@@ -1,0 +1,25 @@
+{
+  "name": "store-angular2-app",
+  "description": "Store Application build using angular2",
+  "main": "index.html",
+  "authors": [
+    "pradeep singh"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "Store",
+    "application",
+    "angular2"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
